@@ -31,6 +31,7 @@ func remove_health(points):
 	if health - points <= 0:
 		health = 0
 		dead()
+		player.add_money(10)
 	else:
 		health -= points
 	print(health)

@@ -6,6 +6,8 @@ export var current_health = 100
 export var accuracy = 25 #in degrees
 export var energy = 100
 export var damage = 100
+export var driving_energy_usage = 13 # per second
+export var money = 0
 
 var velocity = Vector2()
 
@@ -20,19 +22,21 @@ func _ready():
 func _physics_process(delta):
 	get_input()
 	velocity = move_and_slide(velocity)
+	if velocity.x != 0 || velocity.y != 0 && energy > 0:
+		energy -= delta * driving_energy_usage
 
 
 func get_input():
 	velocity = Vector2()
-	
-	if Input.is_action_pressed("left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("right"):
-		velocity.x += 1
-	if Input.is_action_pressed("up"):
-		velocity.y -= 1
-	if Input.is_action_pressed("down"):
-		velocity.y += 1
+	if energy > 0:
+		if Input.is_action_pressed("left"):
+			velocity.x -= 1
+		if Input.is_action_pressed("right"):
+			velocity.x += 1
+		if Input.is_action_pressed("up"):
+			velocity.y -= 1
+		if Input.is_action_pressed("down"):
+			velocity.y += 1
 	
 	velocity = velocity.normalized() * speed
 
@@ -51,3 +55,6 @@ func use_energy(number):
 
 func can_use_energy(number):
 	return energy - number >= 0
+	
+func add_money(number):
+	money += number
