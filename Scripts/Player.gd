@@ -9,6 +9,15 @@ export var damage = 100
 export var driving_energy_usage = 13 # per second
 export var money = 0
 
+export var player_hp_current_level = 0
+export var player_acc_current_level = 0
+export var player_spd_current_level = 0
+export var player_nrg_current_level = 0
+export var player_gun_selected = 0
+export var player_weapons_unlocked = [0]
+export var shells_current_level = 0
+export var minigun_current_level = 0
+
 #var shell_node = preload("res://Objects/Weapons/DefaultShell.tscn")
 var shellgun = preload("res://Objects/Weapoons/BaseGun.tscn")
 var minigun = preload("res://Objects/Weapoons/Minigun.tscn")
@@ -24,11 +33,11 @@ var spawned_weapon
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-#	debug = get_tree().get_root().get_node("Root/CanvasLayer/DebugStats")
-#	debug.add_property(self, "velocity", "length")
-#	debug.add_property(self, "energy", "")
-#	debug.add_property(self, "current_health", "")
-#	debug.add_property(self, "money", "")
+	debug = get_tree().get_root().get_node("Root/CanvasLayer/DebugStats")
+	debug.add_property(self, "velocity", "length")
+	debug.add_property(self, "energy", "")
+	debug.add_property(self, "current_health", "")
+	debug.add_property(self, "money", "")
 	upgrader = get_tree().get_root().get_node("Root/Upgrader")
 	if upgrader != null:
 		set_weapon(upgrader.player_gun_selected)
@@ -51,7 +60,6 @@ func get_input():
 	if energy > 0:
 		if Input.is_action_pressed("left"):
 			velocity.x -= 1
-			set_weapon(2)
 		if Input.is_action_pressed("right"):
 			velocity.x += 1
 		if Input.is_action_pressed("up"):

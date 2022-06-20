@@ -1,10 +1,11 @@
 extends KinematicBody2D
 
 onready var collision := $CollisionShape2D
-var health = 100
-var damage = 100
-var speed = 100
-var type = "BaseEnemy"
+export var health = 100
+export var damage = 100
+export var speed = 100
+export var gold_worth = 40
+export var type = "BaseEnemy"
 var player 
 
 # Declare member variables here. Examples:
@@ -45,7 +46,7 @@ func remove_health(points):
 	if health - points <= 0:
 		health = 0
 		dead()
-		player.add_money(10)
+		player.add_money(gold_worth)
 	else:
 		health -= points
 	print(health)
@@ -62,17 +63,17 @@ func _physics_process(delta):
 		navigate()
 		
 	if should_follow_player:
-		move()
+		move(delta)
 		look_at(player.global_position)
 	
-func move():
+func move(delta):
 	velocity = move_and_slide(velocity)
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider.name == "Player":
 #			timer.start()
 			
-			collision.collider.remove_health(10)
+			collision.collider.remove_health(damage * delta)
 
 func navigate():
 	if path.size() > 0:

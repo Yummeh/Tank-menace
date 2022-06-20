@@ -8,7 +8,9 @@ var shell_node = preload("res://Objects/DefaultShell.tscn")
 var player
 var angle = 0
 var tree
-export var energy_usage = 1
+var upgrader
+export var energy_usage = 40
+export var current_damaging_enemies = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +18,10 @@ func _ready():
 	player = tree.get_node("Root/Player")
 	if player == null:
 		printerr("BaseGun.gd: Is the player path correct?")
+		
+	upgrader = get_tree().get_root().get_node("Root/Upgrader")
+	
+	
 	pass # Replace with function body.
 
 
@@ -29,6 +35,11 @@ func _process(delta):
 	look_at(get_global_mouse_position())
 #	print(rotation_degrees)
 	get_input()
+	if current_damaging_enemies.size() > 0 && player.can_use_energy(energy_usage * delta):
+		player.use_energy(energy_usage * delta)
+		for enemy in current_damaging_enemies:
+			enemy.remove_health(upgrader.spiked_dps[upgrader.spiked_current_level] * delta)
+
 
 func _physics_process(delta):
 	pass
@@ -42,3 +53,12 @@ func get_input():
 func shooting():
 	if player.can_use_energy(energy_usage):
 		player.use_energy(energy_usage)
+
+
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("Enemy"):
+		current_damaging_enemies.append(body)
+
+func _on_Area2D_body_exited(body):
+	if body.is_in_group("Enemy"):
+		current_damaging_enemies.erase(body)

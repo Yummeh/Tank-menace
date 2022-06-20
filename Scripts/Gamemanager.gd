@@ -21,10 +21,21 @@ var default_data = {
 	}
 }
 
+export var player_hp_current_level = 0
+export var player_acc_current_level = 0
+export var player_spd_current_level = 0
+export var player_nrg_current_level = 0
+export var player_gun_selected = 0
+export var player_weapons_unlocked = [0]
+export var shells_current_level = 0
+export var minigun_current_level = 0
+
 var data = { }
+var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	player = get_tree().get_root().get_node("Root/Player")
 	# Start UI scene
 	# When player clicks start load level scene
 	
@@ -58,3 +69,7 @@ func save_game():
 
 func reset_data():
 	data = default_data.duplicate(true)
+	
+	
+func get_data():
+	pass
