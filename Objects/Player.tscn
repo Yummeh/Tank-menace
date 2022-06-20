@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Objects/BaseGun.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/TankBaseSprite.png" type="Texture" id=4]
+[ext_resource path="res://Animations/TankMovement.tres" type="Animation" id=5]
 
 [sub_resource type="Animation" id=4]
 resource_name = "New Anim"
@@ -22,23 +22,11 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "TankMovement"
-length = 0.45
+[sub_resource type="Animation" id=6]
+resource_name = "Walker"
+length = 0.5
 loop = true
 step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2 ]
-}
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 35 )
@@ -60,10 +48,9 @@ hframes = 3
 autoplay = "TankMovement"
 "anims/New Anim" = SubResource( 4 )
 anims/RESET = SubResource( 2 )
-anims/TankMovement = SubResource( 3 )
+anims/TankMovement = ExtResource( 5 )
+anims/Walker = SubResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource( 1 )
-
-[node name="BaseGun" parent="." instance=ExtResource( 2 )]

@@ -8,7 +8,7 @@ var shell_node = preload("res://Objects/DefaultShell.tscn")
 var player
 var angle = 0
 var tree
-export var energy_usage = 10
+export var energy_usage = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,24 +34,11 @@ func _physics_process(delta):
 	pass
 
 func get_input():
-	if Input.is_action_just_pressed("mouseLeft"):
-		shoot()
+	if Input.is_action_pressed("mouseLeft"):
+		shooting()
 
 
 # Try to shoot a shell, do energy stuff
-func shoot():
+func shooting():
 	if player.can_use_energy(energy_usage):
 		player.use_energy(energy_usage)
-		spawn_shell()
-
-# Create shell in the scene
-func spawn_shell():
-	var shell_instance = shell_node.instance()
-	var mouse_dir = (get_global_mouse_position() - global_position).normalized()
-	
-	shell_instance.set_position(player.position + mouse_dir * 70)
-	shell_instance.set_rotation(mouse_dir.angle())
-	shell_instance.set_velocity_direction(mouse_dir)
-	shell_instance.set_damage(player.damage)
-	
-	tree.add_child(shell_instance)

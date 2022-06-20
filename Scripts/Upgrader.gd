@@ -56,7 +56,7 @@ enum player_weapons {
 	laser = 3,
 }
 export var player_gun_selected = 0
-var player_weapons_unlocked = [0]
+export var player_weapons_unlocked = [0]
 
 # Lets say 9 upgrades
 var shells_dps = [10, 20, 40, 80, 160,
@@ -93,3 +93,8 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func get_unlocked_weapons():
+	return player_weapons_unlocked
+
+func add_unlocked_weapon(number):
+	player_weapons_unlocked.insert(player_weapons_unlocked.size(), number)

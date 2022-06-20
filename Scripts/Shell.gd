@@ -1,4 +1,4 @@
-extends Area2D
+extends KinematicBody2D
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -18,7 +18,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position += velocity * delta
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		queue_free()
+		print(collision.collider.get_class())
+		if collision.collider.is_in_group("Enemy"):
+			collision.collider.remove_health(damage)
+			
+#	position += velocity * delta
 
 func set_timer():
 	var timer = Timer.new()
@@ -36,10 +43,22 @@ func _on_Area2D_body_entered(body):
 	var layer = body.get_collision_layer()
 	if layer == 5:
 		body.remove_health(damage)
-	queue_free()
+		print(body.name)
 	
 #	if body
 	pass # Replace with function body.
 
 func set_damage(points):
 	damage = points
+
+func explode():
+	pass
+#	var shell_instance = shell_node.instance()
+#	var mouse_dir = (get_global_mouse_position() - global_position).normalized()
+#
+#	shell_instance.set_position(player.position + mouse_dir * 70)
+#	shell_instance.set_rotation(mouse_dir.angle())
+#	shell_instance.set_velocity_direction(mouse_dir)
+#	shell_instance.set_damage(player.damage)
+#
+#	tree.add_child(shell_instance)
