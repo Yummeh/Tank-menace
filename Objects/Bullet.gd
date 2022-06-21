@@ -5,7 +5,7 @@ extends Area2D
 # var a = 2
 # var b = "text"
 var damage = 5
-var speed = 1500
+var speed = 1300
 
 var velocity = Vector2()
 
@@ -27,7 +27,6 @@ func _on_Node2D_body_entered(body):
 	
 	if body.is_in_group("Enemy"):
 		body.remove_health(damage)
-		print(body.name)
 	queue_free()
 	
 	pass # Replace with function body.

@@ -1,12 +1,14 @@
 extends KinematicBody2D
 
 onready var collision := $CollisionShape2D
+export var max_health = 100
 export var health = 100
 export var damage = 100
 export var speed = 100
 export var gold_worth = 40
 export var type = "BaseEnemy"
 var player 
+onready var HPBar := $Node2D/HPBar
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -39,7 +41,8 @@ func _ready():
 	
 	pass # Replace with function body.
 
-
+func _process(delta):
+	HPBar.set_value(health as float / max_health as float * 100)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func remove_health(points):
@@ -49,10 +52,8 @@ func remove_health(points):
 		player.add_money(gold_worth)
 	else:
 		health -= points
-	print(health)
 	
 func dead():
-	print("I am dead")
 	queue_free()
 	pass
 

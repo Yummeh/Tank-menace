@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Animations/WalkerAnimation.tres" type="Animation" id=1]
 [ext_resource path="res://Scripts/BaseEnemy.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/TankMenaceWalker.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/WalkerSeesPlayer.gd" type="Script" id=4]
+[ext_resource path="res://Objects/WalkerHPBar.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Theme.tres" type="Theme" id=6]
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -50,6 +52,14 @@ height = 36.0
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 500.0
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0, 0.262745, 0.368627, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.8, 0.8, 0.8, 0 )
 
 [node name="Walker" type="KinematicBody2D" groups=["Enemy"]]
 collision_layer = 5
@@ -99,6 +109,21 @@ script = ExtResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false
 shape = SubResource( 5 )
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="HPBar" type="ProgressBar" parent="Node2D"]
+margin_left = -65.0
+margin_top = -93.0
+margin_right = 68.0
+margin_bottom = -64.0
+theme = ExtResource( 6 )
+custom_styles/fg = SubResource( 7 )
+value = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_Area2D_body_exited"]

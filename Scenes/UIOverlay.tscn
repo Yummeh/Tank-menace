@@ -1,0 +1,175 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scenes/Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/UIOverlay.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.882353, 0.913725, 0.27451, 1 )
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://Scenes/Roboto-Medium.ttf"
+
+[sub_resource type="DynamicFont" id=4]
+font_data = SubResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.854902, 0.282353, 0.282353, 1 )
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.27451, 0.0705882, 0.0705882, 1 )
+draw_center = false
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://Scenes/Roboto-Medium.ttf"
+
+[sub_resource type="DynamicFont" id=7]
+font_data = SubResource( 6 )
+
+[node name="UIOverlay" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnergyBar" type="ProgressBar" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -494.32
+margin_top = -243.715
+margin_right = -310.96
+margin_bottom = -214.145
+theme = ExtResource( 1 )
+custom_styles/fg = SubResource( 1 )
+value = 52.38
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Label" type="Label" parent="EnergyBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -83.68
+margin_top = -9.785
+margin_right = -33.68
+margin_bottom = 9.215
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Energy"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NRGValue" type="Label" parent="EnergyBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.68
+margin_top = -9.785
+margin_right = 67.32
+margin_bottom = 9.215
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "1000 / 10000"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HPBar" type="ProgressBar" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -495.0
+margin_top = -283.0
+margin_right = -311.64
+margin_bottom = -253.43
+theme = ExtResource( 1 )
+custom_styles/fg = SubResource( 2 )
+value = 52.38
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Label2" type="Label" parent="HPBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -84.0
+margin_top = -9.5
+margin_right = -34.0
+margin_bottom = 9.5
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Health"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HPValue" type="Label" parent="HPBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -28.0
+margin_top = -9.5
+margin_right = 58.0
+margin_bottom = 9.5
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "1000 / 1000"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gold" type="ProgressBar" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -494.32
+margin_top = -207.715
+margin_right = -378.32
+margin_bottom = -177.715
+theme = ExtResource( 1 )
+custom_styles/fg = SubResource( 5 )
+value = 52.38
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Label" type="Label" parent="Gold"]
+margin_left = 8.0
+margin_top = 6.0
+margin_right = 48.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Gold: 10000"

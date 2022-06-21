@@ -65,19 +65,19 @@ margin_bottom = 599.0
 rect_min_size = Vector2( 200, 100 )
 theme = ExtResource( 6 )
 custom_fonts/font = ExtResource( 4 )
-text = "Retry game"
+text = "New run"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Exit" type="Button" parent="."]
 margin_top = 499.0
-margin_right = 231.0
+margin_right = 213.0
 margin_bottom = 599.0
 rect_min_size = Vector2( 100, 100 )
 theme = ExtResource( 6 )
 custom_fonts/font = ExtResource( 4 )
-text = "Exit game"
+text = "Start menu"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -124,10 +124,13 @@ __meta__ = {
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 199.0
-margin_top = 219.0
-margin_right = -785.0
-margin_bottom = -341.0
+margin_left = 151.0
+margin_top = 230.0
+margin_right = -833.0
+margin_bottom = -330.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Control"]
 visible = false
@@ -142,10 +145,10 @@ __meta__ = {
 }
 
 [node name="HPUpgrade" type="Button" parent="."]
-margin_left = 270.0
-margin_top = 217.0
-margin_right = 491.0
-margin_bottom = 255.0
+margin_left = 222.0
+margin_top = 228.0
+margin_right = 443.0
+margin_bottom = 266.0
 custom_fonts/font = SubResource( 6 )
 text = "HP 500g"
 __meta__ = {
@@ -153,10 +156,10 @@ __meta__ = {
 }
 
 [node name="SPDUpgrade" type="Button" parent="."]
-margin_left = 270.0
-margin_top = 272.0
-margin_right = 491.0
-margin_bottom = 310.0
+margin_left = 222.0
+margin_top = 283.0
+margin_right = 443.0
+margin_bottom = 321.0
 custom_fonts/font = SubResource( 6 )
 text = "SPD 500g"
 __meta__ = {
@@ -176,12 +179,45 @@ __meta__ = {
 }
 
 [node name="NRGUpgrade" type="Button" parent="."]
-margin_left = 270.0
-margin_top = 324.0
-margin_right = 491.0
-margin_bottom = 362.0
+margin_left = 222.0
+margin_top = 335.0
+margin_right = 443.0
+margin_bottom = 373.0
 custom_fonts/font = SubResource( 6 )
 text = "NRG 500g"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextWeapon" type="Button" parent="."]
+margin_left = 748.0
+margin_top = 293.0
+margin_right = 990.0
+margin_bottom = 331.0
+custom_fonts/font = SubResource( 6 )
+text = "Next weapon"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrevWeapon" type="Button" parent="."]
+margin_left = 515.0
+margin_top = 293.0
+margin_right = 736.0
+margin_bottom = 331.0
+custom_fonts/font = SubResource( 6 )
+text = "Prev weapon"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeWeapon" type="Button" parent="."]
+margin_left = 633.0
+margin_top = 353.0
+margin_right = 854.0
+margin_bottom = 391.0
+custom_fonts/font = SubResource( 6 )
+text = "Weapon 500g"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -189,10 +225,10 @@ __meta__ = {
 [node name="Gamemanager" parent="." instance=ExtResource( 7 )]
 
 [node name="HPDisplay" type="Label" parent="."]
-margin_left = 79.0
-margin_top = 219.0
-margin_right = 138.0
-margin_bottom = 254.0
+margin_left = 31.0
+margin_top = 230.0
+margin_right = 90.0
+margin_bottom = 265.0
 custom_fonts/font = SubResource( 8 )
 text = "HP"
 __meta__ = {
@@ -200,21 +236,43 @@ __meta__ = {
 }
 
 [node name="MoneyDisplay" type="Label" parent="."]
-margin_left = 79.0
-margin_top = 110.0
-margin_right = 175.0
-margin_bottom = 145.0
+margin_left = 31.0
+margin_top = 121.0
+margin_right = 127.0
+margin_bottom = 156.0
 custom_fonts/font = SubResource( 8 )
 text = "Money:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SelectWeapon" type="Label" parent="."]
+margin_left = 565.0
+margin_top = 176.0
+margin_right = 914.0
+margin_bottom = 211.0
+custom_fonts/font = SubResource( 8 )
+text = "Select weapon for next run"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WeaponDisplay" type="Label" parent="."]
+margin_left = 584.0
+margin_top = 226.0
+margin_right = 894.0
+margin_bottom = 261.0
+custom_fonts/font = SubResource( 8 )
+text = "Weapon: Minigun lvl 1/5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Upgrade" type="Label" parent="."]
-margin_left = 275.0
-margin_top = 169.0
-margin_right = 485.0
-margin_bottom = 204.0
+margin_left = 227.0
+margin_top = 180.0
+margin_right = 437.0
+margin_bottom = 215.0
 custom_fonts/font = SubResource( 8 )
 text = "Click to upgrade"
 __meta__ = {
@@ -231,18 +289,21 @@ custom_fonts/font = SubResource( 8 )
 text = "ACC"
 
 [node name="SPDDisplay" type="Label" parent="."]
-margin_left = 79.0
-margin_top = 274.0
-margin_right = 138.0
-margin_bottom = 309.0
+margin_left = 31.0
+margin_top = 285.0
+margin_right = 90.0
+margin_bottom = 320.0
 custom_fonts/font = SubResource( 8 )
 text = "SPD"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="NRGDisplay" type="Label" parent="."]
-margin_left = 79.0
-margin_top = 326.0
-margin_right = 138.0
-margin_bottom = 361.0
+margin_left = 31.0
+margin_top = 337.0
+margin_right = 90.0
+margin_bottom = 372.0
 custom_fonts/font = SubResource( 8 )
 text = "NRG"
 __meta__ = {
@@ -256,3 +317,6 @@ __meta__ = {
 [connection signal="pressed" from="HPUpgrade" to="." method="_on_HPUpgrade_pressed"]
 [connection signal="pressed" from="SPDUpgrade" to="." method="_on_SPDUpgrade_pressed"]
 [connection signal="pressed" from="NRGUpgrade" to="." method="_on_NRGUpgrade_pressed"]
+[connection signal="pressed" from="NextWeapon" to="." method="_on_NextWeapon_pressed"]
+[connection signal="pressed" from="PrevWeapon" to="." method="_on_PrevWeapon_pressed"]
+[connection signal="pressed" from="UpgradeWeapon" to="." method="_on_UpgradeWeapon_pressed"]

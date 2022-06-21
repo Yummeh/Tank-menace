@@ -16,6 +16,9 @@ position = Vector2( -0.5, 0.5 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -6.27438e-06, 1 )
+rotation = 1.57079
+scale = Vector2( 2.24467, 2.24467 )
 texture = ExtResource( 1 )
 
 [connection signal="body_entered" from="." to="." method="_on_Node2D_body_entered"]

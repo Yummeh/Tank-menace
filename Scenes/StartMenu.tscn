@@ -57,6 +57,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TankUpgrades" type="Button" parent="."]
+margin_left = 817.0
+margin_top = 250.0
+margin_right = 1017.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 200, 100 )
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "View tank upgrades"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Exit" type="Button" parent="."]
 margin_left = 381.0
 margin_top = 393.0
@@ -121,4 +134,5 @@ text = "Play tank menace"
 
 [connection signal="pressed" from="Hello btutton" to="." method="_on_Hello_btutton_pressed"]
 [connection signal="pressed" from="Reset Game" to="." method="_on_Reset_Game_pressed"]
+[connection signal="pressed" from="TankUpgrades" to="." method="_on_TankUpgrades_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]

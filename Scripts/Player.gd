@@ -12,7 +12,7 @@ export var hp_current_level = 0
 export var acc_current_level = 0
 export var spd_current_level = 0
 export var nrg_current_level = 0
-export var gun_selected = 0
+export var weapon_selected = 0
 export var weapons_unlocked = [0]
 export var shells_current_level = 0
 export var minigun_current_level = 0
@@ -37,15 +37,14 @@ func _ready():
 	get_player_data()
 	
 	
-	debug = get_tree().get_root().get_node("Root/CanvasLayer/DebugStats")
-	debug.add_property(self, "velocity", "length")
-	debug.add_property(self, "energy", "")
-	debug.add_property(self, "current_health", "")
-	debug.add_property(self, "money", "")
+#	debug = get_tree().get_root().get_node("Root/CanvasLayer/DebugStats")
+#	debug.add_property(self, "velocity", "length")
+#	debug.add_property(self, "energy", "")
+#	debug.add_property(self, "current_health", "")
+#	debug.add_property(self, "money", "")
 	upgrader = get_tree().get_root().get_node("Root/Upgrader")
 	if upgrader != null:
-#		set_weapon(upgrader.player_gun_selected)
-		set_weapon(1)
+		set_weapon(weapon_selected)
 
 #	speed = upgrader.
 		max_health = upgrader.player_hp_data[hp_current_level]
@@ -63,6 +62,10 @@ func _physics_process(delta):
 
 
 func get_input():
+	if Input.is_action_pressed("Home"):
+		save_player_data()
+		get_tree().change_scene("res://Scenes/StartMenu.tscn")
+	
 	velocity = Vector2()
 	if energy > 0:
 		if Input.is_action_pressed("left"):
@@ -88,6 +91,8 @@ func turn():
 func use_energy(number):
 	if energy - number >= 0:
 		energy -= number
+		if energy == 0:
+			dead()
 	else:
 		energy = 0
 		dead()
@@ -123,6 +128,7 @@ func save_player_data():
 			"minigun_current_level": minigun_current_level,
 			"spiked_current_level": spiked_current_level,
 			"laser_current_level": laser_current_level,
+			"weapon_selected": weapon_selected
 	}
 	var gamemanager = get_tree().get_root().get_node("Root/Gamemanager")
 	gamemanager.set_player_data(player_data)
@@ -142,6 +148,7 @@ func get_player_data():
 	minigun_current_level = player.minigun_current_level
 	spiked_current_level = player.spiked_current_level
 	laser_current_level = player.laser_current_level
+	weapon_selected = player.weapon_selected
 
 
 func set_weapon(number):
@@ -149,7 +156,7 @@ func set_weapon(number):
 		spawned_weapon.queue_free()
 	var weapon
 	var weapon_instance_level
-	match number:
+	match number as int:
 		0:
 			weapon = shellgun
 			weapon_instance_level = shells_current_level
@@ -169,4 +176,5 @@ func set_weapon(number):
 	spawned_weapon = weapon.instance()
 	spawned_weapon.level = weapon_instance_level
 	add_child(spawned_weapon)
+
 	pass

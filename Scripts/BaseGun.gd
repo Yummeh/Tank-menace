@@ -8,7 +8,7 @@ var shell_node = preload("res://Objects/DefaultShell.tscn")
 var player
 var angle = 0
 var tree
-export var energy_usage = 10
+export var energy_usage = 5
 var level = 0
 var dps = 10
 var upgrader
@@ -20,22 +20,18 @@ func _ready():
 	if player == null:
 		printerr("BaseGun.gd: Is the player path correct?")
 	upgrader = get_tree().get_root().get_node("Root/Upgrader")
+	set_dps()
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var player_position = get_global_transform()[2]
-	var mouse_position = get_global_mouse_position()
 		
 #	angle = atan2(mouse_position.y - player_position.y, mouse_position.x - player_position.x) * 180 / PI
 	
 	look_at(get_global_mouse_position())
 #	print(rotation_degrees)
 	get_input()
-
-func _physics_process(delta):
-	pass
 
 func get_input():
 	if Input.is_action_just_pressed("mouseLeft"):
@@ -61,6 +57,7 @@ func spawn_shell():
 	tree.add_child(shell_instance)
 
 func set_dps():
-	if upgrader != null:
-		dps = upgrader.shells_dps[level]
+	var gamemanager = get_tree().get_root().get_node("Root/Gamemanager")
+	if upgrader != null && gamemanager != null:
+		dps = upgrader.shells_dps[gamemanager.data.shells_current_level]
 	

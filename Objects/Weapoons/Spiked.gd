@@ -22,6 +22,7 @@ func _ready():
 		printerr("BaseGun.gd: Is the player path correct?")
 	upgrader = get_tree().get_root().get_node("Root/Upgrader")
 	
+	set_dps()
 	pass # Replace with function body.
 
 
@@ -65,6 +66,6 @@ func _on_Area2D_body_exited(body):
 		current_damaging_enemies.erase(body)
 
 func set_dps():
-	if upgrader != null:
-		dps = upgrader.spiked_dps[level]
-	
+	var gamemanager = get_tree().get_root().get_node("Root/Gamemanager")
+	if upgrader != null && gamemanager != null:
+		dps = upgrader.spiked_dps[gamemanager.data.spiked_current_level]
