@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/UpgradeScene.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TankBaseSpritSinglee.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Assets/new_dynamicfont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Sprites/ShellsGun.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Theme.tres" type="Theme" id=6]
+[ext_resource path="res://Objects/Gamemanager.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Objects/Upgrader.tscn" type="PackedScene" id=8]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Scenes/Roboto-Medium.ttf"
@@ -20,6 +22,13 @@ font_path = "res://Scenes/Roboto-Medium.ttf"
 [sub_resource type="DynamicFont" id=6]
 size = 26
 font_data = SubResource( 5 )
+
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://Scenes/Roboto-Medium.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 29
+font_data = SubResource( 7 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -132,89 +141,118 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HP upgrade button" type="Button" parent="."]
-visible = false
-margin_left = 56.0
-margin_top = 236.0
-margin_right = 271.0
-margin_bottom = 274.0
+[node name="HPUpgrade" type="Button" parent="."]
+margin_left = 270.0
+margin_top = 217.0
+margin_right = 491.0
+margin_bottom = 255.0
 custom_fonts/font = SubResource( 6 )
 text = "HP 500g"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SPD upgrade button" type="Button" parent="."]
-visible = false
-margin_left = 56.0
-margin_top = 380.0
-margin_right = 233.0
-margin_bottom = 418.0
+[node name="SPDUpgrade" type="Button" parent="."]
+margin_left = 270.0
+margin_top = 272.0
+margin_right = 491.0
+margin_bottom = 310.0
 custom_fonts/font = SubResource( 6 )
-text = "SPD"
+text = "SPD 500g"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DMG upgrade button" type="Button" parent="."]
+[node name="ACCUpgrade" type="Button" parent="."]
 visible = false
-margin_left = 349.0
-margin_top = 380.0
-margin_right = 482.0
-margin_bottom = 418.0
+margin_left = 270.0
+margin_top = 378.0
+margin_right = 491.0
+margin_bottom = 416.0
 custom_fonts/font = SubResource( 6 )
-text = "500g"
+text = "ACC 500g"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DMG upgrade button2" type="Button" parent="."]
-visible = false
-margin_left = 502.0
-margin_top = 380.0
-margin_right = 635.0
-margin_bottom = 418.0
-custom_fonts/font = SubResource( 6 )
-text = "500g"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DMG upgrade button3" type="Button" parent="."]
-visible = false
-margin_left = 656.0
-margin_top = 380.0
-margin_right = 789.0
-margin_bottom = 418.0
-custom_fonts/font = SubResource( 6 )
-text = "500g"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DMG upgrade button4" type="Button" parent="."]
-visible = false
-margin_left = 813.0
-margin_top = 380.0
-margin_right = 946.0
-margin_bottom = 418.0
-custom_fonts/font = SubResource( 6 )
-text = "500g"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NRG upgrade button" type="Button" parent="."]
-visible = false
-margin_left = 56.0
-margin_top = 304.0
-margin_right = 233.0
-margin_bottom = 342.0
+[node name="NRGUpgrade" type="Button" parent="."]
+margin_left = 270.0
+margin_top = 324.0
+margin_right = 491.0
+margin_bottom = 362.0
 custom_fonts/font = SubResource( 6 )
 text = "NRG 500g"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Gamemanager" parent="." instance=ExtResource( 7 )]
+
+[node name="HPDisplay" type="Label" parent="."]
+margin_left = 79.0
+margin_top = 219.0
+margin_right = 138.0
+margin_bottom = 254.0
+custom_fonts/font = SubResource( 8 )
+text = "HP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoneyDisplay" type="Label" parent="."]
+margin_left = 79.0
+margin_top = 110.0
+margin_right = 175.0
+margin_bottom = 145.0
+custom_fonts/font = SubResource( 8 )
+text = "Money:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Upgrade" type="Label" parent="."]
+margin_left = 275.0
+margin_top = 169.0
+margin_right = 485.0
+margin_bottom = 204.0
+custom_fonts/font = SubResource( 8 )
+text = "Click to upgrade"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ACCDisplay" type="Label" parent="."]
+visible = false
+margin_left = 79.0
+margin_top = 380.0
+margin_right = 138.0
+margin_bottom = 415.0
+custom_fonts/font = SubResource( 8 )
+text = "ACC"
+
+[node name="SPDDisplay" type="Label" parent="."]
+margin_left = 79.0
+margin_top = 274.0
+margin_right = 138.0
+margin_bottom = 309.0
+custom_fonts/font = SubResource( 8 )
+text = "SPD"
+
+[node name="NRGDisplay" type="Label" parent="."]
+margin_left = 79.0
+margin_top = 326.0
+margin_right = 138.0
+margin_bottom = 361.0
+custom_fonts/font = SubResource( 8 )
+text = "NRG"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="upgrader" parent="." instance=ExtResource( 8 )]
+
 [connection signal="pressed" from="Retry Game" to="." method="_on_Retry_Game_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="HPUpgrade" to="." method="_on_HPUpgrade_pressed"]
+[connection signal="pressed" from="SPDUpgrade" to="." method="_on_SPDUpgrade_pressed"]
+[connection signal="pressed" from="NRGUpgrade" to="." method="_on_NRGUpgrade_pressed"]

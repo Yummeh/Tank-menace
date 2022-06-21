@@ -73,12 +73,18 @@ color_ramp = SubResource( 1 )
 
 [node name="BaseEnemy" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( -1, -938 )
+health = 40
+damage = 10
 
 [node name="BaseEnemy2" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( -167, -1582 )
+health = 60
+gold_worth = 60
 
 [node name="BaseEnemy4" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 191, -1576 )
+health = 60
+gold_worth = 60
 
 [node name="Horde" type="Area2D" parent="Enemies"]
 

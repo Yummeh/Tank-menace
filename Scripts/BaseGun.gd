@@ -9,6 +9,9 @@ var player
 var angle = 0
 var tree
 export var energy_usage = 10
+var level = 0
+var dps = 10
+var upgrader
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +19,7 @@ func _ready():
 	player = tree.get_node("Root/Player")
 	if player == null:
 		printerr("BaseGun.gd: Is the player path correct?")
+	upgrader = get_tree().get_root().get_node("Root/Upgrader")
 	pass # Replace with function body.
 
 
@@ -52,6 +56,11 @@ func spawn_shell():
 	shell_instance.set_position(player.position + mouse_dir * 70)
 	shell_instance.set_rotation(mouse_dir.angle())
 	shell_instance.set_velocity_direction(mouse_dir)
-	shell_instance.set_damage(player.damage)
+	shell_instance.set_damage(dps)
 	
 	tree.add_child(shell_instance)
+
+func set_dps():
+	if upgrader != null:
+		dps = upgrader.shells_dps[level]
+	

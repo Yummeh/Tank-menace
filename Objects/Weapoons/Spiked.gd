@@ -11,6 +11,8 @@ var tree
 var upgrader
 export var energy_usage = 40
 export var current_damaging_enemies = []
+var level = 0
+var dps = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,11 +20,10 @@ func _ready():
 	player = tree.get_node("Root/Player")
 	if player == null:
 		printerr("BaseGun.gd: Is the player path correct?")
-		
 	upgrader = get_tree().get_root().get_node("Root/Upgrader")
 	
-	
 	pass # Replace with function body.
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,7 +39,7 @@ func _process(delta):
 	if current_damaging_enemies.size() > 0 && player.can_use_energy(energy_usage * delta):
 		player.use_energy(energy_usage * delta)
 		for enemy in current_damaging_enemies:
-			enemy.remove_health(upgrader.spiked_dps[upgrader.spiked_current_level] * delta)
+			enemy.remove_health(dps * delta)
 
 
 func _physics_process(delta):
@@ -62,3 +63,8 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_body_exited(body):
 	if body.is_in_group("Enemy"):
 		current_damaging_enemies.erase(body)
+
+func set_dps():
+	if upgrader != null:
+		dps = upgrader.spiked_dps[level]
+	

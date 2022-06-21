@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Weapoons/Minigun.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Sprites/TankBaseSprite.png" type="Texture" id=4]
 [ext_resource path="res://Animations/TankMovement.tres" type="Animation" id=5]
 
@@ -54,3 +55,5 @@ anims/Walker = SubResource( 6 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource( 1 )
+
+[node name="Node2D" parent="." instance=ExtResource( 3 )]

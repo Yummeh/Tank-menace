@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/new_dynamicfont.tres" type="DynamicFont" id=2]
@@ -6,6 +6,14 @@
 [ext_resource path="res://Sprites/ShellsGun.png" type="Texture" id=4]
 [ext_resource path="res://Assets/TankMenaceWalkeSingler.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/StartMenu.gd" type="Script" id=6]
+[ext_resource path="res://Objects/Gamemanager.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Scenes/Roboto-Medium.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+font_data = SubResource( 1 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -32,6 +40,19 @@ rect_min_size = Vector2( 200, 100 )
 theme = ExtResource( 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "Start game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Reset Game" type="Button" parent="."]
+margin_left = 817.0
+margin_top = 493.0
+margin_right = 1017.0
+margin_bottom = 593.0
+rect_min_size = Vector2( 200, 100 )
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Reset game data"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -96,5 +117,8 @@ margin_bottom = 148.0
 custom_fonts/font = ExtResource( 2 )
 text = "Play tank menace"
 
+[node name="Gamemanager" parent="." instance=ExtResource( 7 )]
+
 [connection signal="pressed" from="Hello btutton" to="." method="_on_Hello_btutton_pressed"]
+[connection signal="pressed" from="Reset Game" to="." method="_on_Reset_Game_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]

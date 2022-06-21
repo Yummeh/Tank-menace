@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 var path = "user://data.json"
 
@@ -6,19 +6,29 @@ var path = "user://data.json"
 # var a = 2
 # var b = "text"
 var default_data = {
-	"player": {
 		"money": 0,
-		"hplvl": 0,
-		"dmglvl": 0,
-		"spdlvl": 0,
-		"nrglvl": 0,
-		"accuracylvl": 0,
-		"gunsowned": [0],
-		"shelllvl": 0,
-		"minigunlvl": 0,
-		"spikedlvl": 0,
-		"laserlvl": 0,
-	}
+		"hp_current_level": 0,
+		"spd_current_level": 0,
+		"acc_current_level": 0,
+		"nrg_current_level": 0,
+		"weapons_unlocked": [0],
+		"shells_current_level": 0,
+		"minigun_current_level": 0,
+		"spiked_current_level": 0,
+		"laser_current_level": 0,
+}
+
+var player_data = {
+		"money": 0,
+		"hp_current_level": 0,
+		"spd_current_level": 0,
+		"nrg_current_level": 0,
+		"acc_current_level": 0,
+		"weapons_unlocked": [0],
+		"shells_current_level": 0,
+		"minigun_current_level": 0,
+		"spiked_current_level": 0,
+		"laser_current_level": 0,
 }
 
 export var player_hp_current_level = 0
@@ -35,7 +45,7 @@ var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_tree().get_root().get_node("Root/Player")
+#	player = get_tree().get_root().get_node("Root/Player")
 	# Start UI scene
 	# When player clicks start load level scene
 	
@@ -70,6 +80,15 @@ func save_game():
 func reset_data():
 	data = default_data.duplicate(true)
 	
+func set_player_data(p_data):
+	data = p_data
 	
 func get_data():
 	pass
+
+func _on_Get_data_pressed():
+	pass # Replace with function body.
+
+
+func _on_Some_pressed():
+	pass # Replace with function body.

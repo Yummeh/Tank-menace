@@ -42,11 +42,8 @@ var player_spd_level_cost = [0, 200, 850, 2200, 5000, 12800]
 # Lets say 8 upgrades
 # its a mix of movement and being able to deal damage
 export var player_nrg_current_level = 0
-var player_nrg_data = [100, 140, 180, 220, 260, 300, 360, 400, 440]
+var player_nrg_data = [100, 160, 200, 240, 280, 320, 360, 400, 440]
 var player_nrg_level_cost = [0, 100, 200, 400, 800, 1600, 3200, 6400, 12800]
-
-
-
 
 #
 enum player_weapons {
