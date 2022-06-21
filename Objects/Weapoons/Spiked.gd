@@ -40,7 +40,7 @@ func _process(delta):
 	if current_damaging_enemies.size() > 0 && player.can_use_energy(energy_usage * delta):
 		player.use_energy(energy_usage * delta)
 		for enemy in current_damaging_enemies:
-			enemy.remove_health(dps * delta)
+			enemy.remove_health(dps / 10)
 
 
 func _physics_process(delta):

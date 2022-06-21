@@ -154,7 +154,7 @@ func _on_UpgradeWeapon_pressed():
 			weapon = "minigun_current_level"
 		2:
 			cost = upgrader.spiked_level_cost[player_data.spiked_current_level + 1]
-
+			weapon = "spiked_current_level"
 		3:
 			cost = upgrader.laser_level_cost[player_data.laser_current_level + 1]
 			weapon = "laser_current_level"

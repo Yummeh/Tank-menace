@@ -36,7 +36,7 @@ func _on_WeaponUpgrade_body_entered(body):
 				gamemanager.data.weapons_unlocked.insert(gamemanager.data.weapons_unlocked.size(), weapon_upgrade_id)
 				print("insert")
 		if weapon_upgrade_id == 3:
-			get_tree().change_scene("res://Scenes/BaseScene.tscn")
+			get_tree().change_scene("res://Scenes/EndScreen.tscn")
 		
 		queue_free()
 	pass # Replace with function body.
