@@ -5,6 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 var shell_node = preload("res://Objects/DefaultShell.tscn")
+onready var audio := $ShellShotSound
 var player
 var angle = 0
 var tree
@@ -43,6 +44,7 @@ func shoot():
 	if player.can_use_energy(energy_usage):
 		player.use_energy(energy_usage)
 		spawn_shell()
+		audio.play()
 
 # Create shell in the scene
 func spawn_shell():

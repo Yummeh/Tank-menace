@@ -9,6 +9,8 @@ var speed = 1300
 
 var velocity = Vector2()
 
+var HitParticle = preload("res://Objects/HitParticle.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -27,6 +29,12 @@ func _on_Node2D_body_entered(body):
 	
 	if body.is_in_group("Enemy"):
 		body.remove_health(damage)
+		var tree = get_tree().get_root()
+		var hitInstance = HitParticle.instance()
+		hitInstance.set_position(global_position)
+		tree.add_child(hitInstance)
+		
+		
 	queue_free()
 	
 	pass # Replace with function body.

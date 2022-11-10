@@ -68,4 +68,4 @@ func _on_Area2D_body_exited(body):
 func set_dps():
 	var gamemanager = get_tree().get_root().get_node("Root/Gamemanager")
 	if upgrader != null && gamemanager != null:
-		dps = upgrader.spiked_dps[gamemanager.data.spiked_current_level]
+		dps = upgrader.spiked_dps[gamemanager.data.spiked_current_level - 1]

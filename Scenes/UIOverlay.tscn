@@ -1,15 +1,20 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scenes/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/UIOverlay.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Coin.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/HealthIcon.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/EnergyIcon.png" type="Texture" id=5]
+[ext_resource path="res://Animations/ScenesWarningHealth.tres" type="Animation" id=6]
+[ext_resource path="res://Animations/ScenesWarningEnergy.tres" type="Animation" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.882353, 0.913725, 0.27451, 1 )
+bg_color = Color( 1, 0.823529, 0.317647, 1 )
 border_width_left = 6
 border_width_top = 6
 border_width_right = 6
 border_width_bottom = 6
-border_color = Color( 0.8, 0.8, 0.8, 0 )
+border_color = Color( 1, 0.0980392, 0.0980392, 0 )
 
 [sub_resource type="DynamicFontData" id=3]
 font_path = "res://Scenes/Roboto-Medium.ttf"
@@ -26,14 +31,44 @@ border_width_bottom = 6
 border_color = Color( 0.8, 0.8, 0.8, 0 )
 
 [sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.27451, 0.0705882, 0.0705882, 1 )
+bg_color = Color( 0.478431, 0.188235, 0.188235, 1 )
 draw_center = false
 
-[sub_resource type="DynamicFontData" id=6]
+[sub_resource type="DynamicFontData" id=8]
 font_path = "res://Scenes/Roboto-Medium.ttf"
 
 [sub_resource type="DynamicFont" id=7]
-font_data = SubResource( 6 )
+font_data = SubResource( 8 )
+
+[sub_resource type="Theme" id=9]
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 9
+border_width_top = 9
+border_width_right = 9
+border_width_bottom = 9
+border_color = Color( 1, 0.819608, 0.282353, 0 )
+
+[sub_resource type="Animation" id=12]
+length = 0.001
+
+[sub_resource type="Animation" id=13]
+resource_name = "WarningHealthNEnergy"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("WarningBorder:custom_styles/normal:border_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.475, 0.525, 1, 1.475, 1.525, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.901961, 0.0862745, 0.0862745, 1 ), Color( 0.435294, 0.435294, 0.454902, 0 ), Color( 1, 0.819608, 0.282353, 0 ), Color( 1, 0.819608, 0.282353, 1 ), Color( 1, 0.819608, 0.282353, 0 ), Color( 0.901961, 0.0862745, 0.0862745, 0 ), Color( 0.901961, 0.0862745, 0.0862745, 1 ) ]
+}
 
 [node name="UIOverlay" type="Control"]
 anchor_right = 1.0
@@ -48,10 +83,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -494.32
-margin_top = -243.715
-margin_right = -310.96
-margin_bottom = -214.145
+margin_left = -473.82
+margin_top = -227.156
+margin_right = -290.46
+margin_bottom = -197.586
 theme = ExtResource( 1 )
 custom_styles/fg = SubResource( 1 )
 value = 52.38
@@ -61,31 +96,20 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Label" type="Label" parent="EnergyBar"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -83.68
-margin_top = -9.785
-margin_right = -33.68
-margin_bottom = 9.215
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "Energy"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="EnergyIcon" type="Sprite" parent="EnergyBar"]
+position = Vector2( 3.32001, 16.7188 )
+scale = Vector2( 4.71354, 4.71354 )
+texture = ExtResource( 5 )
 
 [node name="NRGValue" type="Label" parent="EnergyBar"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -27.68
-margin_top = -9.785
-margin_right = 67.32
-margin_bottom = 9.215
+margin_left = -38.86
+margin_top = -8.62875
+margin_right = 56.14
+margin_bottom = 10.3713
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
 text = "1000 / 10000"
@@ -100,10 +124,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -495.0
-margin_top = -283.0
-margin_right = -311.64
-margin_bottom = -253.43
+margin_left = -474.5
+margin_top = -281.438
+margin_right = -291.14
+margin_bottom = -251.867
 theme = ExtResource( 1 )
 custom_styles/fg = SubResource( 2 )
 value = 52.38
@@ -113,31 +137,20 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Label2" type="Label" parent="HPBar"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -84.0
-margin_top = -9.5
-margin_right = -34.0
-margin_bottom = 9.5
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "Health"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="HealthIcon" type="Sprite" parent="HPBar"]
+position = Vector2( 3, 10 )
+scale = Vector2( 4.59375, 4.59375 )
+texture = ExtResource( 4 )
 
 [node name="HPValue" type="Label" parent="HPBar"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -28.0
-margin_top = -9.5
-margin_right = 58.0
-margin_bottom = 9.5
+margin_left = -39.18
+margin_top = -8.3475
+margin_right = 46.82
+margin_bottom = 10.6525
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
 text = "1000 / 1000"
@@ -152,10 +165,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -494.32
-margin_top = -207.715
-margin_right = -378.32
-margin_bottom = -177.715
+margin_left = -473.82
+margin_top = -169.938
+margin_right = -357.82
+margin_bottom = -139.938
 theme = ExtResource( 1 )
 custom_styles/fg = SubResource( 5 )
 value = 52.38
@@ -165,11 +178,38 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="Coin" type="Sprite" parent="Gold"]
+position = Vector2( 0.320007, 13 )
+scale = Vector2( 4.3125, 4.3125 )
+texture = ExtResource( 3 )
+
 [node name="Label" type="Label" parent="Gold"]
-margin_left = 8.0
-margin_top = 6.0
-margin_right = 48.0
-margin_bottom = 25.0
+margin_left = 41.82
+margin_top = 5.9375
+margin_right = 86.82
+margin_bottom = 24.9375
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 7 )
-text = "Gold: 10000"
+text = "10000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WarningBorder" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 9 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 0
+custom_fonts/font = SubResource( 7 )
+custom_styles/normal = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WarningAnimation" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+anims/RESET = SubResource( 12 )
+anims/WarningEnergy = ExtResource( 7 )
+anims/WarningHealth = ExtResource( 6 )
+anims/WarningHealthNEnergy = SubResource( 13 )

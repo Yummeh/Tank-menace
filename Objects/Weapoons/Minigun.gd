@@ -5,6 +5,7 @@ var level = 0
 # var a = 2
 # var b = "text"
 var shell_node = preload("res://Objects/Bullet.tscn")
+onready var audio := $MinigunShotSound
 var player
 var angle = 0
 var tree
@@ -38,7 +39,7 @@ func get_input(delta):
 
 
 var bullet_timing = 1
-var bullet_timer_increase = 0.4
+var bullet_timer_increase = 0.2
 var bullet_counter = 1
 
 # Try to shoot a shell, do energy stuff
@@ -49,6 +50,8 @@ func shooting(delta):
 			player.use_energy(energy_usage)
 			bullet_counter -= bullet_timing
 			spawn_bullet()
+			audio.play()
+			
 	else:
 		bullet_counter += bullet_timer_increase
 	
@@ -74,4 +77,4 @@ func spawn_bullet():
 func set_dps():
 	var gamemanager = get_tree().get_root().get_node("Root/Gamemanager")
 	if upgrader != null && gamemanager != null:
-		dps = upgrader.minigun_dps[gamemanager.data.minigun_current_level]
+		dps = upgrader.minigun_dps[gamemanager.data.minigun_current_level - 1]

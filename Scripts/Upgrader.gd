@@ -42,7 +42,7 @@ var player_spd_level_cost = [0, 200, 850, 2200, 5000, 12800]
 # Lets say 8 upgrades
 # its a mix of movement and being able to deal damage
 export var player_nrg_current_level = 0
-var player_nrg_data = [100, 200, 300, 400, 500, 600, 700, 800, 900]
+var player_nrg_data = [150, 300, 450, 700, 850, 900, 1050, 1200, 1350]
 var player_nrg_level_cost = [0, 100, 200, 400, 800, 1600, 3200, 6400, 12800]
 
 #
@@ -72,14 +72,14 @@ var minigun_level_cost = [0, 200, 400, 800, 1600, 3200, 6400, 12800]
 
 
 # Lets say 4 upgrades
-var spiked_dps = [320, 640, 1280, 2560, 5120]
+var spiked_dps = [320, 640, 1280, 2560, 5120, 10240]
 export var spiked_current_level = 0
 var spiked_level_cost = [0, 800, 1600, 3200, 6400, 12800]
 
 
 
 # Lets say 2 upgrades
-var laser_dps = [1280, 2560, 5120]
+var laser_dps = [640, 1280, 2560, 5120]
 export var laser_current_level = 0
 var laser_level_cost = [0, 3200, 6400, 12800]
 

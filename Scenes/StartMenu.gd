@@ -21,7 +21,7 @@ func _on_Hello_btutton_pressed():
 
 
 func _on_Exit_pressed():
-	get_tree().exit()
+	get_tree().quit()
 
 
 func pressed():

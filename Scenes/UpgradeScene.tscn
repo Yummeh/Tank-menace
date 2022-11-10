@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scenes/UpgradeScene.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TankBaseSpritSinglee.png" type="Texture" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://Scenes/Theme.tres" type="Theme" id=6]
 [ext_resource path="res://Objects/Gamemanager.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Objects/Upgrader.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sprites/Coin.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/HealthIcon.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/EnergyIcon.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/SpeedIcon.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Scenes/Roboto-Medium.ttf"
@@ -41,6 +45,10 @@ __meta__ = {
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = -4.0
+margin_right = -1.0
+margin_bottom = -4.0
 color = Color( 0.321569, 0.596078, 0.666667, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -58,26 +66,27 @@ __meta__ = {
 }
 
 [node name="Retry Game" type="Button" parent="."]
-margin_left = 409.0
-margin_top = 499.0
-margin_right = 731.0
-margin_bottom = 599.0
+margin_left = 404.0
+margin_top = 494.0
+margin_right = 726.0
+margin_bottom = 594.0
 rect_min_size = Vector2( 200, 100 )
 theme = ExtResource( 6 )
 custom_fonts/font = ExtResource( 4 )
-text = "New run"
+text = "Try again"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Exit" type="Button" parent="."]
-margin_top = 499.0
-margin_right = 213.0
-margin_bottom = 599.0
+margin_left = 1.0
+margin_top = 497.0
+margin_right = 159.0
+margin_bottom = 597.0
 rect_min_size = Vector2( 100, 100 )
 theme = ExtResource( 6 )
 custom_fonts/font = ExtResource( 4 )
-text = "Start menu"
+text = "Home"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -145,23 +154,23 @@ __meta__ = {
 }
 
 [node name="HPUpgrade" type="Button" parent="."]
-margin_left = 222.0
-margin_top = 228.0
-margin_right = 443.0
-margin_bottom = 266.0
+margin_left = 199.0
+margin_top = 229.0
+margin_right = 343.0
+margin_bottom = 267.0
 custom_fonts/font = SubResource( 6 )
-text = "HP 500g"
+text = "50000"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SPDUpgrade" type="Button" parent="."]
-margin_left = 222.0
-margin_top = 283.0
-margin_right = 443.0
-margin_bottom = 321.0
+margin_left = 199.0
+margin_top = 284.0
+margin_right = 343.0
+margin_bottom = 322.0
 custom_fonts/font = SubResource( 6 )
-text = "SPD 500g"
+text = "50000"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -179,102 +188,122 @@ __meta__ = {
 }
 
 [node name="NRGUpgrade" type="Button" parent="."]
-margin_left = 222.0
-margin_top = 335.0
-margin_right = 443.0
-margin_bottom = 373.0
+margin_left = 199.0
+margin_top = 336.0
+margin_right = 343.0
+margin_bottom = 374.0
 custom_fonts/font = SubResource( 6 )
-text = "NRG 500g"
+text = "50000"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NextWeapon" type="Button" parent="."]
-margin_left = 748.0
-margin_top = 293.0
-margin_right = 990.0
-margin_bottom = 331.0
+margin_left = 862.0
+margin_top = 236.0
+margin_right = 914.0
+margin_bottom = 274.0
 custom_fonts/font = SubResource( 6 )
-text = "Next weapon"
+text = ">"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PrevWeapon" type="Button" parent="."]
-margin_left = 515.0
-margin_top = 293.0
-margin_right = 736.0
-margin_bottom = 331.0
+margin_left = 531.0
+margin_top = 236.0
+margin_right = 583.0
+margin_bottom = 274.0
 custom_fonts/font = SubResource( 6 )
-text = "Prev weapon"
+text = "<"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="UpgradeWeapon" type="Button" parent="."]
-margin_left = 633.0
-margin_top = 353.0
-margin_right = 854.0
-margin_bottom = 391.0
+margin_left = 649.0
+margin_top = 321.0
+margin_right = 784.0
+margin_bottom = 359.0
 custom_fonts/font = SubResource( 6 )
-text = "Weapon 500g"
+text = "500"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Gamemanager" parent="." instance=ExtResource( 7 )]
 
+[node name="Coin" type="Sprite" parent="."]
+position = Vector2( 37, 146 )
+scale = Vector2( 4.75, 4.75 )
+texture = ExtResource( 9 )
+
+[node name="Coin2" type="Sprite" parent="."]
+position = Vector2( 344, 246 )
+scale = Vector2( 4.5, 4.5 )
+texture = ExtResource( 9 )
+
+[node name="Coin3" type="Sprite" parent="."]
+position = Vector2( 345, 303 )
+scale = Vector2( 4.375, 4.375 )
+texture = ExtResource( 9 )
+
+[node name="Coin4" type="Sprite" parent="."]
+position = Vector2( 345, 356 )
+scale = Vector2( 4.375, 4.375 )
+texture = ExtResource( 9 )
+
+[node name="Coin5" type="Sprite" parent="."]
+position = Vector2( 785, 337 )
+scale = Vector2( 4.75, 4.75 )
+texture = ExtResource( 9 )
+
 [node name="HPDisplay" type="Label" parent="."]
-margin_left = 31.0
+margin_left = 75.0
 margin_top = 230.0
-margin_right = 90.0
+margin_right = 134.0
 margin_bottom = 265.0
 custom_fonts/font = SubResource( 8 )
-text = "HP"
+text = "lvl 1/9"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MoneyDisplay" type="Label" parent="."]
-margin_left = 31.0
-margin_top = 121.0
-margin_right = 127.0
-margin_bottom = 156.0
+margin_left = 74.0
+margin_top = 132.0
+margin_right = 170.0
+margin_bottom = 167.0
 custom_fonts/font = SubResource( 8 )
-text = "Money:"
+text = "100"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SelectWeapon" type="Label" parent="."]
-margin_left = 565.0
-margin_top = 176.0
-margin_right = 914.0
-margin_bottom = 211.0
+margin_left = 557.0
+margin_top = 153.0
+margin_right = 906.0
+margin_bottom = 188.0
 custom_fonts/font = SubResource( 8 )
 text = "Select weapon for next run"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="WeaponDisplay" type="Label" parent="."]
-margin_left = 584.0
-margin_top = 226.0
-margin_right = 894.0
-margin_bottom = 261.0
-custom_fonts/font = SubResource( 8 )
-text = "Weapon: Minigun lvl 1/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="SpeedIcon" type="Sprite" parent="SelectWeapon"]
+position = Vector2( -520, 146 )
+scale = Vector2( 4.5, 4.5 )
+texture = ExtResource( 12 )
 
-[node name="Upgrade" type="Label" parent="."]
-margin_left = 227.0
-margin_top = 180.0
-margin_right = 437.0
-margin_bottom = 215.0
+[node name="WeaponDisplay" type="Label" parent="."]
+margin_left = 615.0
+margin_top = 236.0
+margin_right = 831.0
+margin_bottom = 271.0
 custom_fonts/font = SubResource( 8 )
-text = "Click to upgrade"
+text = "Minigun lvl 1/5"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -289,28 +318,38 @@ custom_fonts/font = SubResource( 8 )
 text = "ACC"
 
 [node name="SPDDisplay" type="Label" parent="."]
-margin_left = 31.0
+margin_left = 75.0
 margin_top = 285.0
-margin_right = 90.0
+margin_right = 134.0
 margin_bottom = 320.0
 custom_fonts/font = SubResource( 8 )
-text = "SPD"
+text = "lvl 1/9"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NRGDisplay" type="Label" parent="."]
-margin_left = 31.0
+margin_left = 75.0
 margin_top = 337.0
-margin_right = 90.0
+margin_right = 134.0
 margin_bottom = 372.0
 custom_fonts/font = SubResource( 8 )
-text = "NRG"
+text = "lvl 1/9"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="upgrader" parent="." instance=ExtResource( 8 )]
+
+[node name="EnergyIcon" type="Sprite" parent="."]
+position = Vector2( 41, 352 )
+scale = Vector2( 3.91667, 3.91667 )
+texture = ExtResource( 11 )
+
+[node name="HealthIcon" type="Sprite" parent="."]
+position = Vector2( 39, 246 )
+scale = Vector2( 4.25, 4.25 )
+texture = ExtResource( 10 )
 
 [connection signal="pressed" from="Retry Game" to="." method="_on_Retry_Game_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]

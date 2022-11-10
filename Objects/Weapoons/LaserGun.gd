@@ -49,4 +49,5 @@ func get_input(delta):
 func set_dps():
 	if upgrader != null:
 		dps = upgrader.laser_dps[level]
+		
 	

@@ -5,6 +5,7 @@ onready var HPValue = $HPBar/HPValue
 onready var GoldValue = $Gold/Label
 onready var HPBar = $HPBar
 onready var NRGBar = $EnergyBar
+onready var warningAnimation := $WarningAnimation
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -16,6 +17,10 @@ var max_hp
 var max_nrg
 var upgrader
 var money
+
+var warningHealth = false
+var warningEnergy = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,9 +43,38 @@ func _process(delta):
 		money = player.money
 		HPValue.set_text(floor(player.current_health) as String + " / " + max_hp as String)
 		NRGValue.set_text(floor(player.energy) as String + " / " + max_nrg as String)
-		GoldValue.set_text("Gold: " + player.money as String)
+		GoldValue.set_text(player.money as String)
 		NRGBar.set_value(floor(player.energy) / max_nrg * 100)
 		HPBar.set_value(floor(player.current_health) / max_hp * 100)
-		pass
-	
+		
+		if (floor(player.current_health) / max_hp * 100) < 30:
+			warningHealth = true
+		else:
+			warningHealth = false
+			
+		if (floor(player.energy) / max_nrg * 100) < 30:
+			warningEnergy = true
+		else:
+			warningEnergy = false
+		
+		setWarningScreen()
 	pass
+
+
+func setWarningScreen():
+	
+	if warningEnergy && warningHealth:
+		if warningAnimation.current_animation != "WarningHealthNEnergy":
+			warningAnimation.play("WarningHealthNEnergy")
+		return
+	
+	if warningEnergy:
+		if warningAnimation.current_animation != "WarningEnergy":
+			warningAnimation.play("WarningEnergy")
+		return
+	
+	if warningHealth:
+		if warningAnimation.current_animation != "WarningHealth":
+			warningAnimation.play("WarningHealth")
+		return
+

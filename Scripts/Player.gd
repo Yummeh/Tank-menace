@@ -24,7 +24,9 @@ var shellgun = preload("res://Objects/Weapoons/BaseGun.tscn")
 var minigun = preload("res://Objects/Weapoons/Minigun.tscn")
 var spiked = preload("res://Objects/Weapoons/Spiked.tscn")
 var laser = preload("res://Objects/Weapoons/LaserGun.tscn")
-
+onready var drivingAudio := $DrivingAudio
+onready var coinAudio := $CollectCoin
+onready var hitAnimation := $HitAnimation
 
 var velocity = Vector2()
 
@@ -35,7 +37,6 @@ var spawned_weapon
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_player_data()
-	
 	
 #	debug = get_tree().get_root().get_node("Root/CanvasLayer/DebugStats")
 #	debug.add_property(self, "velocity", "length")
@@ -76,9 +77,25 @@ func get_input():
 			velocity.y -= 1
 		if Input.is_action_pressed("down"):
 			velocity.y += 1
-	
+		
+		if velocity.x != 0 || velocity.y != 0:
+			doAudio(true)
+		else:
+			doAudio(false)
+		
 	velocity = velocity.normalized() * speed
 
+var driving = false
+
+func doAudio(audioVal):
+	if !driving && audioVal:
+		drivingAudio.play()
+		driving = true
+	if driving && !audioVal:
+		drivingAudio.stop()
+		driving = false
+	
+	pass
 
 func _process(delta):
 	turn()
@@ -102,10 +119,13 @@ func can_use_energy(number):
 	
 func add_money(number):
 	money += number
+	playCoinAudio()
 
 func remove_health(number):
 	if current_health - number > 0:
 		current_health -= number
+		if hitAnimation.current_animation != "Damaged":
+			hitAnimation.play("Damaged")
 	else:
 		current_health = 0
 		dead()
@@ -178,3 +198,6 @@ func set_weapon(number):
 	add_child(spawned_weapon)
 
 	pass
+
+func playCoinAudio():
+	coinAudio.play()

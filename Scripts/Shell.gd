@@ -6,6 +6,7 @@ extends KinematicBody2D
 export var speed = 1200
 export var damage = 10
 var velocity = Vector2()
+var HitParticle = preload("res://Objects/HitParticle.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,7 +25,11 @@ func _process(delta):
 		print(collision.collider.get_class())
 		if collision.collider.is_in_group("Enemy"):
 			collision.collider.remove_health(damage)
-			
+			var tree = get_tree().get_root()
+			var hitInstance = HitParticle.instance()
+			hitInstance.set_position(global_position)
+			tree.add_child(hitInstance)
+				
 #	position += velocity * delta
 
 func set_timer():
