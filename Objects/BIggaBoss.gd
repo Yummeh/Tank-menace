@@ -13,6 +13,13 @@ export var type = "BaseEnemy"
 var player 
 onready var HPBar := $Node2D/HPBar
 onready var HPLabel := $Node2D/HPLabel
+onready var SwordAnimation := $GiantWalker/SwingSword
+onready var GiantWalkerSprite := $GiantWalker
+onready var GiantWalkerPhase2Sprite := $GiantWalkerStage2
+
+
+var arrow = preload("res://Objects/BiggaBossArrow.tscn")
+var rng = RandomNumberGenerator.new()
 
 enum BossStage {
 	None
@@ -43,7 +50,8 @@ var movementState = MovementState.Still
 var bossStage = BossStage.None
 var isAggro = false
 var fightHasStarted = false
-
+var playerInMeleeRange = false
+var stageChangeMid = false
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -61,6 +69,14 @@ var should_follow_player = false
 var doDash = false
 var dashing = false
 var dashLocation
+var dashDirection
+
+var doMeleeNormal = false
+var doMeleeStrong = false
+var doRanged = false
+var doSpawnCritters = false
+var runAway = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -82,60 +98,221 @@ var stateChange = false
 
 func ok():
 	print("start")
-	yield(get_tree().create_timer(3.0), "timeout")
+	yield(get_tree().create_timer(1.5), "timeout")
 	print("end")
-	
-	doDash = true
-	print("ok")
-	
 	pass
 
 func _process(delta):
 	HPBar.set_value(health as float / max_health as float * 100)
 	HPLabel.set_text(health as String)
 	
+	
 	match bossStage:
 		BossStage.InitialStage:
-			if doDash:
-				dash()
-			
+#			Initial stage should be high chance of melee attacks, low chance of ranged attacks
+
 			if stateChange:
 				stateChange = false
 				movementState = MovementState.SlowMoving
-				ok()
-#				var huh = funcref(self, "ok")
-				
-#				waitForNextMove(huh)
-				
-				
-			
-			
+				doSomeInitialStageAttack()
 			pass
 		BossStage.MidStage:
+#			Mid stage should be higher shance of ranged attacks and higher chance of dash followed by a melee attack
+#			Could also dash away from player and do ranged attack
+			if stateChange:
+				stateChange = false
+				movementState = MovementState.SlowMoving
+				print("*******************")
+				doSomeMidStageAttack()
+#				doDash = true
+#			print(doDash)
+			if doDash:
+				dash()
+			
 			pass
 		BossStage.FinalStage:
+#			Now spawns little critters and will do stronger melee attacks
+			
 			pass
 	
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
+func doSomeInitialStageAttack():
+#	If player is in range do melee attack otherwise do ranged attack
+	yield(get_tree().create_timer(2.0), "timeout")
+	rng.randomize()
+	var my_random_number = rng.randi_range(0, 1)
+	if playerInMeleeRange:
+		print("Melee attack")
+		movementState = MovementState.Running
+		yield(get_tree().create_timer(1.0), "timeout")
+		meleeAttack()
+		movementState = MovementState.SlowMoving
+		yield(get_tree().create_timer(1.0), "timeout")
+		pass
+	else:
+		if my_random_number == 0:
+			print("Ranged attack")
+			rng.randomize()
+			var random_multiple_shots = rng.randi_range(0, 1)
+			
+			movementState = MovementState.Charging
+			yield(get_tree().create_timer(1.0), "timeout")
+			rangedAttack()
+			
+			if random_multiple_shots == 1:
+				yield(get_tree().create_timer(1.0), "timeout")
+				rangedAttack()
+				yield(get_tree().create_timer(1.0), "timeout")
+				rangedAttack()
+				
+				
+				
+			yield(get_tree().create_timer(1.0), "timeout")
+			movementState = MovementState.Running
+			yield(get_tree().create_timer(1.0), "timeout")
+			movementState = MovementState.SlowMoving
+		else:
+			
+			print("Melee not on range attack")
+			movementState = MovementState.Running
+			yield(get_tree().create_timer(3.0), "timeout")
+			meleeAttack()
+			yield(get_tree().create_timer(0.5), "timeout")
+			meleeAttack()
+			yield(get_tree().create_timer(0.5), "timeout")
+			meleeAttack()
+			yield(get_tree().create_timer(0.5), "timeout")
+			
+			movementState = MovementState.SlowMoving
+			yield(get_tree().create_timer(1.0), "timeout")
+	
+	doSomeInitialStageAttack()
+
+func doSomeMidStageAttack():
+#	If player is in range do melee attack otherwise do ranged attack
+	yield(get_tree().create_timer(2.0), "timeout")
+
+#	print()
+	doDash = true
+	rng.randomize()
+	var my_random_number = rng.randi_range(0, 1)
+	if playerInMeleeRange:
+		print("Melee attack")
+		movementState = MovementState.Running
+		yield(get_tree().create_timer(1.0), "timeout")
+		meleeAttack()
+		movementState = MovementState.SlowMoving
+		yield(get_tree().create_timer(1.0), "timeout")
+		pass
+	else:
+		if my_random_number == 0:
+			print("Ranged attack")
+			rng.randomize()
+			var random_multiple_shots = rng.randi_range(0, 1)
+			
+			movementState = MovementState.Charging
+			yield(get_tree().create_timer(1.0), "timeout")
+			rangedAttack()
+			
+			if random_multiple_shots == 1:
+				yield(get_tree().create_timer(1.0), "timeout")
+				rangedAttack()
+				yield(get_tree().create_timer(1.0), "timeout")
+				rangedAttack()
+			yield(get_tree().create_timer(1.0), "timeout")
+			movementState = MovementState.Running
+			yield(get_tree().create_timer(1.0), "timeout")
+			movementState = MovementState.SlowMoving
+		else:
+			print("Melee not on range attack")
+			rng.randomize()
+			var random_dashes = rng.randf_range(0, 1)
+			print(random_dashes)
+			if random_dashes >= 0.3:
+				print("Do dashes")
+				yield(get_tree().create_timer(1.0), "timeout")
+				doDash = true
+				
+				print(doDash)
+#				dash()
+				meleeAttack()
+				yield(get_tree().create_timer(1.0), "timeout")
+				doDash = true
+#				dash()
+				meleeAttack()
+			else:
+				movementState = MovementState.Running
+				yield(get_tree().create_timer(3.0), "timeout")
+				meleeAttack()
+				yield(get_tree().create_timer(0.5), "timeout")
+				meleeAttack()
+				yield(get_tree().create_timer(0.5), "timeout")
+				meleeAttack()
+				yield(get_tree().create_timer(0.5), "timeout")
+			
+			movementState = MovementState.SlowMoving
+			yield(get_tree().create_timer(1.0), "timeout")
+	stateChange = true
+
+func meleeNormal():
+	meleeAttack()
+	pass
+	
+func meleeStrong():
+	meleeAttack()
+	pass
+	
+func meleeAttack():
+	SwordAnimation.play("SwingSword")
+	pass
+	
+func rangedAttack():
+	var tree = get_tree().get_root()
+	
+	var arrow_instance = arrow.instance()
+	var shootDirection = (player.position - position).normalized()
+#	var rand_vel_dir = (randi() % 50 - 25) * PI / 180
+#	var rand_vel_vec = Vector2(cos(rand_vel_dir), sin(rand_vel_dir))
+#	print(rand_vel_dir)
+#
+	
+	arrow_instance.set_position(position + shootDirection * 70)
+	arrow_instance.set_rotation(shootDirection.angle())
+	arrow_instance.set_velocity_direction(shootDirection)
+	arrow_instance.set_damage(100)
+	
+	tree.add_child(arrow_instance)
+#	yield(get_tree().create_timer(.5), "timeout")
+#	rangedAttack()
+	pass
+	
+func spawnCritters():
+	pass
+
+
 func dash():
+	print("Dash")
 	doDash = false
 	should_follow_player = false
+
+	dashLocation = player.position
+	dashDirection = (dashLocation - position).normalized()
 	
 #	Wait before dashing
 	yield(get_tree().create_timer(1), "timeout")
 	dashing = true
 	movementState = MovementState.Dash
-	dashLocation = player.position
 #	Timer for dashing duration
-	yield(get_tree().create_timer(1), "timeout")
+	yield(get_tree().create_timer(0.2), "timeout")
 	movementState = MovementState.SlowMoving
+	
+	
 	dashing = false
 	should_follow_player = true
-	print("stop dash")
-
+	
 func waitForNextMove(function):
 	timer.wait_time = 1.0
 	timer.connect("timeout",self, "_on_timer_timeout") 
@@ -148,8 +325,19 @@ func remove_health(points):
 		dead()
 	else:
 		health -= points
+		if health as float / max_health as float * 100 < 35 && !stageChangeMid:
+			GiantWalkerSprite.hide()
+			GiantWalkerPhase2Sprite.show()
+			
+			bossStage = BossStage.MidStage
+			stageChangeMid = true
+			stateChange = true
 	
 func dead():
+	player.save_player_data()
+	get_tree().change_scene("res://Scenes/EndScreen.tscn")
+	
+	
 	var tree = get_tree().get_root()
 	var deathSoundObjectInstance = deathSoundObject.instance()
 	deathSoundObjectInstance.set_position(global_position)
@@ -179,9 +367,9 @@ func _physics_process(delta):
 		generate_path()
 #		navigate()
 		
-	if should_follow_player:
-		move(delta)
-		look_at(player.global_position)
+#	if should_follow_player:
+#		move(delta)
+#		look_at(player.global_position)
 		
 	bossMovement(delta)
 	
@@ -193,11 +381,16 @@ func bossMovement(delta):
 		MovementState.Still:
 			speed = 0
 		MovementState.SlowMoving:
+#			print("slow")
 			speed = 50
 		MovementState.Running:
 			speed = 300
 		MovementState.Dash:
-			speed = 1000
+			speed = 2000
+			velocity = dashDirection * speed
+			move(delta)
+			look_at(dashLocation)
+				
 		MovementState.Charging:
 			speed = 10
 	
@@ -205,12 +398,9 @@ func bossMovement(delta):
 		look_at(player.global_position)
 		generate_path()
 		navigate()
+		move(delta)
 		
-	if dashing:
-		var forward = (dashLocation - position).normalized()
-		print(velocity)
-		
-		velocity = forward * speed
+	
 	
 func move(delta):
 	velocity = move_and_slide(velocity)
@@ -224,7 +414,6 @@ func move(delta):
 func navigate():
 	if path.size() > 0:
 		velocity = global_position.direction_to(path[1]) * speed
-		
 		if global_position == path[0]:
 			path.pop_front()
 	
@@ -247,3 +436,19 @@ func follow_player(boolean):
 		bossStage = BossStage.InitialStage
 	
 	should_follow_player = boolean
+
+
+func _on_MeleeRange_body_entered(body):
+	if body.name == "Player":
+		playerInMeleeRange = true
+	pass # Replace with function body.
+
+
+func _on_MeleeRange_body_exited(body):
+	if body.name == "Player":
+		playerInMeleeRange = false
+	pass # Replace with function body.
+
+
+func _on_Area2D_body_entered(body):
+	pass # Replace with function body.

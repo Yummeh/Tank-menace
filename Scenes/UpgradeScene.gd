@@ -33,11 +33,9 @@ var player_data
 func _ready():
 	gamemanager.load_save()
 	player_data = gamemanager.data
-	player_data.weapons_unlocked = [0, 1, 2, 3]
-	print(player_data.weapons_unlocked)
 	weapon_displayed = player_data.weapon_selected
-	print(player_data)
-	
+	player_data.money = 1000000
+	player_data.weapons_unlocked = [0, 1, 2, 3]
 	render_data()
 	
 	pass # Replace with function body.
@@ -57,7 +55,6 @@ func _on_Exit_pressed():
 
 func _on_Retry_Game_pressed():
 	player_data.weapon_selected = weapon_displayed
-	player_data.money = 10000000
 	
 	gamemanager.set_player_data(player_data)
 	gamemanager.save_game()

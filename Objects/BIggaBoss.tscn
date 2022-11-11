@@ -1,12 +1,39 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Objects/WalkerHPBar.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/WalkerSeesPlayer.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/HealthIcon.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/TankMenaceWalker.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/Theme.tres" type="Theme" id=5]
 [ext_resource path="res://Scenes/Roboto-Medium.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Objects/BIggaBoss.gd" type="Script" id=7]
+[ext_resource path="res://Sprites/Sword or smth.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/GiantWalker.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/GiantWalkerPhase2.png" type="Texture" id=10]
+
+[sub_resource type="CapsuleShape2D" id=14]
+radius = 18.8492
+height = 85.9994
+
+[sub_resource type="CircleShape2D" id=20]
+radius = 1215.22
+
+[sub_resource type="CircleShape2D" id=15]
+radius = 150.003
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0, 0.262745, 0.368627, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 19
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=17]
+default_font = SubResource( 9 )
 
 [sub_resource type="Animation" id=10]
 length = 0.001
@@ -64,60 +91,104 @@ length = 0.5
 loop = true
 step = 0.01
 
-[sub_resource type="CapsuleShape2D" id=14]
-radius = 8.00004
-height = 36.0
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Node2D2/SwordOrSmth:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 63, 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Node2D2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 74, 51 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Node2D2:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -56.4668 ]
+}
 
-[sub_resource type="CircleShape2D" id=15]
-radius = 500.0
+[sub_resource type="Animation" id=19]
+resource_name = "SwingSword"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Node2D2:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -30.8, -57.7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Node2D2/SwordOrSmth:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 59.812, 25.379 ), Vector2( 82.192, 26.652 ) ]
+}
 
-[sub_resource type="StyleBoxFlat" id=16]
-bg_color = Color( 0, 0.262745, 0.368627, 1 )
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color( 0.8, 0.8, 0.8, 0 )
-
-[sub_resource type="DynamicFont" id=9]
-size = 19
-font_data = ExtResource( 6 )
-
-[sub_resource type="Theme" id=17]
-default_font = SubResource( 9 )
-
-[node name="BigaBoss" type="KinematicBody2D"]
+[node name="BigaBoss" type="KinematicBody2D" groups=["Enemy"]]
+collision_layer = 5
 script = ExtResource( 7 )
+max_health = 200000
+health = 200000
+gold_worth = 10000
 
-[node name="TankMenaceWalker" type="Sprite" parent="."]
-position = Vector2( 5.96046e-08, -1 )
-rotation = 1.57079
-scale = Vector2( 4.53125, 4.53125 )
-texture = ExtResource( 4 )
-hframes = 2
+[node name="Node2D2" type="Node2D" parent="."]
+position = Vector2( 74, 51 )
+rotation = -0.985532
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TankMenaceWalker"]
-autoplay = "WalkerAnimation"
-anims/RESET = SubResource( 10 )
-anims/TankMovement = SubResource( 11 )
-anims/WalkerAnimation = SubResource( 12 )
-anims/WalkerMovement = SubResource( 13 )
+[node name="SwordOrSmth" type="Sprite" parent="Node2D2"]
+position = Vector2( 63, 4 )
+rotation = 1.96887
+scale = Vector2( 4.63666, 4.63666 )
+texture = ExtResource( 8 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2( -24, -3 )
-rotation = 3.14159
+[node name="Area2D2" type="Area2D" parent="Node2D2/SwordOrSmth"]
+position = Vector2( -3.314, -1.05572 )
+rotation = -0.154119
+scale = Vector2( 1, 1 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Node2D2/SwordOrSmth/Area2D2"]
+position = Vector2( 4.45233, 0.18676 )
+rotation = 3.29547
+scale = Vector2( 0.215673, 0.215673 )
 shape = SubResource( 14 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1, 23 )
-rotation = 1.57079
-shape = SubResource( 14 )
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2( 24, -3 )
-rotation = -8.88506e-06
-scale = Vector2( 0.999999, 0.999999 )
-shape = SubResource( 14 )
+[node name="TankMenaceWalker" type="Control" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Line2D" type="Line2D" parent="."]
 visible = false
@@ -128,7 +199,11 @@ visible = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
+shape = SubResource( 20 )
+
+[node name="MeleeRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
 shape = SubResource( 15 )
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -136,9 +211,9 @@ script = ExtResource( 1 )
 
 [node name="HPBar" type="ProgressBar" parent="Node2D"]
 margin_left = -65.0
-margin_top = -92.0
+margin_top = -127.0
 margin_right = 68.0
-margin_bottom = -57.0
+margin_bottom = -92.0
 theme = ExtResource( 5 )
 custom_styles/fg = SubResource( 16 )
 value = 50.0
@@ -149,9 +224,9 @@ __meta__ = {
 
 [node name="HPLabel" type="Label" parent="Node2D"]
 margin_left = -15.0
-margin_top = -86.0
+margin_top = -121.0
 margin_right = 29.0
-margin_bottom = -63.0
+margin_bottom = -98.0
 theme = SubResource( 17 )
 text = "1000"
 align = 1
@@ -166,5 +241,50 @@ texture = ExtResource( 3 )
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 
+[node name="GiantWalker" type="Sprite" parent="."]
+position = Vector2( 29, 3 )
+rotation = 1.57079
+scale = Vector2( 4.53125, 4.53125 )
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GiantWalker"]
+root_node = NodePath("../../TankMenaceWalker")
+autoplay = "WalkerAnimation"
+anims/RESET = SubResource( 10 )
+anims/TankMovement = SubResource( 11 )
+anims/WalkerAnimation = SubResource( 12 )
+anims/WalkerMovement = SubResource( 13 )
+
+[node name="SwingSword" type="AnimationPlayer" parent="GiantWalker"]
+root_node = NodePath("../../TankMenaceWalker")
+autoplay = "RESET"
+anims/RESET = SubResource( 18 )
+anims/SwingSword = SubResource( 19 )
+
+[node name="GiantWalkerStage2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 29, 3 )
+rotation = 1.57079
+scale = Vector2( 4.53125, 4.53125 )
+texture = ExtResource( 10 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( -24, -3 )
+rotation = 3.14159
+shape = SubResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 32, -47 )
+rotation = 1.57079
+shape = SubResource( 14 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2( 33, 50 )
+rotation = 1.57079
+shape = SubResource( 14 )
+
+[connection signal="body_entered" from="Node2D2/SwordOrSmth/Area2D2" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="MeleeRange" to="." method="_on_MeleeRange_body_entered"]
+[connection signal="body_exited" from="MeleeRange" to="." method="_on_MeleeRange_body_exited"]

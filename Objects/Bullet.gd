@@ -28,12 +28,13 @@ func set_velocity_direction(direction):
 func _on_Node2D_body_entered(body):
 	
 	if body.is_in_group("Enemy"):
+		print(damage)
 		body.remove_health(damage)
 		var tree = get_tree().get_root()
 		var hitInstance = HitParticle.instance()
 		hitInstance.set_position(global_position)
 		tree.add_child(hitInstance)
-		
+		hitInstance.setHitParticleValue(damage)
 		
 	queue_free()
 	

@@ -21,15 +21,18 @@ func _ready():
 func _process(delta):
 	var collision = move_and_collide(velocity * delta)
 	if collision:
-		queue_free()
+
 		print(collision.collider.get_class())
 		if collision.collider.is_in_group("Enemy"):
+			print(damage)
 			collision.collider.remove_health(damage)
 			var tree = get_tree().get_root()
 			var hitInstance = HitParticle.instance()
 			hitInstance.set_position(global_position)
 			tree.add_child(hitInstance)
+			hitInstance.setHitParticleValue(damage)
 				
+		queue_free()
 #	position += velocity * delta
 
 func set_timer():
@@ -46,7 +49,9 @@ func set_velocity_direction(direction):
 
 func _on_Area2D_body_entered(body):
 	var layer = body.get_collision_layer()
+	print("hit smth")
 	if layer == 5:
+		print(layer)
 		body.remove_health(damage)
 		print(body.name)
 	

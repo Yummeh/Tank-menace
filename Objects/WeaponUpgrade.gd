@@ -37,8 +37,7 @@ func _on_WeaponUpgrade_body_entered(body):
 				print("insert")
 				
 		if weapon_upgrade_id == 3:
-			body.save_player_data()
-			get_tree().change_scene("res://Scenes/EndScreen.tscn")
+			pass
 		
 		hide()
 #		queue_free()
